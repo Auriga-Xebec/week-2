@@ -8,6 +8,7 @@
 ### Prompt the user for a file name
 echo "Please enter a file name: " && read file_name
 
+### Function to ask, hash and save password
 pass_make(){
     read -sp "Password: " && echo "$REPLY" | sha256sum > secret.txt
 }
@@ -19,6 +20,5 @@ if [ -x "$file_name" ] ; then
 else
 
     mkdir "$file_name" && cd "$file_name" && pass_make
-    
-fi
 
+fi
