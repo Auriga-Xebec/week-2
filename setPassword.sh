@@ -8,22 +8,17 @@
 ### Prompt the user for a file name
 echo "Please enter a file name: " && read file_name
 
-
+pass_make(){
+    read -sp "Password: " && echo "$REPLY" | sha256sum > secret.txt
+}
 
 if [ -x "$file_name" ] ; then
 
-    ### If file name exits cd into it.
-    cd "$file_name" || exit 0
-
-    ### Prompt for password, hash it and save it in the selected dir
-
-    read -sp "Password: " && echo "$REPLY" | sha256sum > secret.txt
+    cd "$file_name" && pass_make
 
 else
-    mkdir "$file_name" && cd "$file_name"    
 
-    read -sp "Password: " && echo "$REPLY" | sha256sum > secret.txt
-   
-
+    mkdir "$file_name" && cd "$file_name" && pass_make
+    
 fi
 
